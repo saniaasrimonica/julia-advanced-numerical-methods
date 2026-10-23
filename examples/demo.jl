@@ -1,0 +1,10 @@
+using AdvancedNumericalMethods, LinearAlgebra
+A,h=poisson1d(40)
+b=ones(40)
+direct=solve_and_diagnose(A,b)
+cg=conjugate_gradient(A,b)
+println("Poisson grid spacing: ",h)
+println("Direct residual: ",direct.residual_norm)
+println("CG converged: ",cg.converged," after ",cg.iterations," iterations")
+println("CG residual: ",norm(A*cg.solution-b))
+println("Dominant eigenvalue estimate: ",power_iteration([4.0 1.0;1.0 3.0]).eigenvalue)
